@@ -1,3 +1,4 @@
+
 // ---------- A tictactoe gaming library! ------------
 
 /*
@@ -49,12 +50,27 @@ export const makeMove = (game, pos) => {
     const currentPlayer = game.player === 'plr1' ? 1 : 2;
     const newBoard = game.board.map((tile, index) => pos === index ? currentPlayer : tile);
     const winPatterns = [[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]];
-    const playerWon = newBoard.map(currentPlayer).match(winPatterns);
-    console.log(game.board + " " + " "  + game.player + " " + " " + newBoard + " " + " " +currentPlayer);
+    let playerPosIndexes = [];
+    for (let i=0; i < newBoard.length; i++ ){
+        if ( newBoard[i] === currentPlayer ){
+            playerPosIndexes.push( i );
+        }
+    }
+    let playerWon = false;
+
+    /*function calculateWinner(squares){
+    for(let i = 0; i < winPatterns.length; i++) {
+        const [a, b, c] = winPatterns[i];
+        if(squares[a] && squares[a] === squares[b] && squares[a] === squares[c]){
+            return squares[a];
+        }
+    }
+    }*/
+    console.log(game.board + " " + " "  + game.player + " " + " " + newBoard + " " + " " +currentPlayer + " " + playerWon);
     return {winner: playerWon === true ? currentPlayer : 0, board: newBoard, player: game.player === 'plr1' ? 'plr2' : 'plr1', line:[]};
-
-
 };
+
+
 
 /*export const didIWin = (game, pos) => {
     const currentPlayer = game.player;
