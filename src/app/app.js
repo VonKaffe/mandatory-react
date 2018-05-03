@@ -24,7 +24,7 @@ export default class App extends React.Component {
     }
     playerMove(i, value){
         if (value === 1 || value === 2) return;
-
+        if (this.state.game.winner) return;
         const newState = makeMove(this.state.game, i);
         this.setState({ game: newState });
     }
@@ -39,7 +39,7 @@ export default class App extends React.Component {
             <div className="container">
                 <div className="board">
                     {this.state.game.board.map((tile, index) => (
-                        <Tile key={index} value={tile} move={() => this.playerMove(index, tile)}/>
+                        <Tile win={this.state.game.line.includes(index)} key={index} value={tile} move={() => this.playerMove(index, tile)}/>
                     ))}
                 </div>
                 <div className="messageBoard">
