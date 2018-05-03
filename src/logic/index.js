@@ -1,4 +1,3 @@
-
 // ---------- A tictactoe gaming library! ------------
 
 /*
@@ -46,34 +45,11 @@ an unchanged game will be returned.
 */
 
 export const makeMove = (game, pos) => {
-    // ...to be implemented!
+
     const currentPlayer = game.player === 'plr1' ? 1 : 2;
     const newBoard = game.board.map((tile, index) => pos === index ? currentPlayer : tile);
     const winPatterns = [[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]];
-    let playerPosIndexes = [];
-    for (let i=0; i < newBoard.length; i++ ){
-        if ( newBoard[i] === currentPlayer ){
-            playerPosIndexes.push( i );
-        }
-    }
-    let playerWon = false;
-
-    /*function calculateWinner(squares){
-    for(let i = 0; i < winPatterns.length; i++) {
-        const [a, b, c] = winPatterns[i];
-        if(squares[a] && squares[a] === squares[b] && squares[a] === squares[c]){
-            return squares[a];
-        }
-    }
-    }*/
-    console.log(game.board + " " + " "  + game.player + " " + " " + newBoard + " " + " " +currentPlayer + " " + playerWon);
-    return {winner: playerWon === true ? currentPlayer : 0, board: newBoard, player: game.player === 'plr1' ? 'plr2' : 'plr1', line:[]};
+    const winPath = winPatterns.find(pattern => pattern.every(value => newBoard[value] === currentPlayer));
+    const winner = !!winPath ? currentPlayer : 0;
+    return {winner, board: newBoard, player: game.player === 'plr1' ? 'plr2' : 'plr1', line: !!winPath && winPath.length > 0 ? winPath : []};
 };
-
-
-
-/*export const didIWin = (game, pos) => {
-    const currentPlayer = game.player;
-    const winPatterns = [[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]];
-    const currentPlayerTiles = game.board.filter((tile, index) => currentPlayer
-};*/
